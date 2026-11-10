@@ -444,7 +444,7 @@ const buildNav=cur=>{const it=(h,l,g)=>`<li${g?' class="g"':''}><a href="#${h}"$
 panel.innerHTML=`<ul>${it('about','About',1)}${it('design','Design Portfolio',1)}${P.slice(0,ND).map(p=>it(p.slug,p.t)).join('')}${it('concept','Concept Art',1)}${P.slice(ND).map(p=>it(p.slug,p.t)).join('')}</ul>`;panel.querySelectorAll('li').forEach((l,i)=>l.style.animationDelay=(i*28+60)+'ms')};
 $('#navbtn').onclick=e=>{e.stopPropagation();panel.classList.toggle('open')};
 document.addEventListener('click',e=>{if(!e.target.closest('#navpanel'))panel.classList.remove('open')});
-const route0=()=>{const h=location.hash.slice(1),p=P.find(x=>x.slug===h);document.body.classList.toggle('detail',!!p);if(p){render(p);scrollTo(0,0)}else if(h){const el=document.getElementById(h);if(el)el.scrollIntoView()}else scrollTo(0,0);buildNav(h);panel.classList.remove('open')};
+const route0=()=>{const h=location.hash.slice(1),p=P.find(x=>x.slug===h);document.body.classList.toggle('detail',!!p);if(p){render(p);scrollTo({top:0,behavior:'instant'})}else if(h){const el=document.getElementById(h);if(el)el.scrollIntoView()}else scrollTo(0,0);buildNav(h);panel.classList.remove('open')};
 const wipe=$('#wipe');let first=true;
 const route=()=>{const h=location.hash.slice(1),p=P.find(x=>x.slug===h),was=document.body.classList.contains('detail');panel.classList.remove('open');if(first||!(p||was)){first=false;route0();return}wipe.textContent=p?p.t:'Home';wipe.classList.remove('go');void wipe.offsetWidth;wipe.classList.add('go');setTimeout(route0,340)};
 addEventListener('hashchange',route);route();
